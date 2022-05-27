@@ -1,0 +1,8 @@
+TreeNode* func(vector<int>& preorder, vector<int>& inorder,int i,int j,int k){
+      TreeNode *temp = new TreeNode();
+      temp -> val = preorder[k];
+
+  }
+  TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder){
+      return func(preorder,inorder,0,inorder.size()-1,0);
+  }
