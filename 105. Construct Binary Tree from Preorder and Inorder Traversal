@@ -1,13 +1,13 @@
 unordered_map<int, int> index;
-TreeNode* func(vector<int>& inorder, int is, int ie, vector<int>& preorder, int ps, int pe){
-      if(is > ie || ps > pe) return nullptr;
+TreeNode* func(vector<int>& inorder, int is, int ie, vector<int>& preorder, int& ps){
+      if(is > ie || k >= preorder.size()) return nullptr;
       
-      TreeNode *root = new TreeNode(preorder[ps]);
-      int ind = index[preorder[ps]];
+      TreeNode *root = new TreeNode(preorder[k]);
+      int ind = index[preorder[k]];
       int left = ind - is;
       
-      root->left = func(inorder, is, ind - 1, preorder, ps + 1, ps + left);
-      root->right = func(inorder, ind + 1, ie, preorder, ps + left + 1, pe);
+      root->left = func(inorder, is, ind - 1, preorder, ++k);
+      root->right = func(inorder, ind + 1, ie, preorder, ++k);
       
       return root;
 }
@@ -15,5 +15,6 @@ TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder){
       for(int i = 0; i< inorder.size(); ++i){
             index[inorder[i]] = i;
       }
-      return func(inorder, 0, inorder.size() - 1, preorder, 0, preorder.size() - 1);
+      int k = 0;
+      return func(inorder, 0, inorder.size() - 1, preorder, k);
 }
